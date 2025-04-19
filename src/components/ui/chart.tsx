@@ -1,3 +1,4 @@
+
 import * as React from "react"
 import * as RechartsPrimitive from "recharts"
 
@@ -353,6 +354,91 @@ function getPayloadConfigFromPayload(
     : config[key as keyof typeof config]
 }
 
+// Adding the missing chart components
+interface ChartProps {
+  data: any[];
+  xField: string;
+  yField: string;
+  height?: number;
+  colors?: string[];
+  showLegend?: boolean;
+}
+
+// Bar Chart Component
+export const BarChart: React.FC<ChartProps> = ({
+  data,
+  xField,
+  yField,
+  height = 300,
+  colors = ["#3b82f6"],
+  showLegend = true,
+}) => {
+  const chartConfig: ChartConfig = React.useMemo(() => {
+    return {
+      [yField]: {
+        color: Array.isArray(colors) ? colors[0] : colors,
+      },
+    };
+  }, [yField, colors]);
+
+  return (
+    <ChartContainer
+      config={chartConfig}
+      className={cn("w-full", height && { height: `${height}px` })}
+    >
+      <RechartsPrimitive.BarChart data={data} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+        <RechartsPrimitive.CartesianGrid strokeDasharray="3 3" vertical={false} />
+        <RechartsPrimitive.XAxis dataKey={xField} />
+        <RechartsPrimitive.YAxis />
+        <ChartTooltip content={<ChartTooltipContent />} />
+        {showLegend && <ChartLegend content={<ChartLegendContent />} />}
+        <RechartsPrimitive.Bar dataKey={yField} fill={Array.isArray(colors) ? colors[0] : colors} radius={[4, 4, 0, 0]} />
+      </RechartsPrimitive.BarChart>
+    </ChartContainer>
+  );
+};
+
+// Line Chart Component
+export const LineChart: React.FC<ChartProps> = ({
+  data,
+  xField,
+  yField,
+  height = 300,
+  colors = ["#3b82f6"],
+  showLegend = true,
+}) => {
+  const chartConfig: ChartConfig = React.useMemo(() => {
+    return {
+      [yField]: {
+        color: Array.isArray(colors) ? colors[0] : colors,
+      },
+    };
+  }, [yField, colors]);
+
+  return (
+    <ChartContainer
+      config={chartConfig}
+      className={cn("w-full", height && { height: `${height}px` })}
+    >
+      <RechartsPrimitive.LineChart data={data} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+        <RechartsPrimitive.CartesianGrid strokeDasharray="3 3" />
+        <RechartsPrimitive.XAxis dataKey={xField} />
+        <RechartsPrimitive.YAxis />
+        <ChartTooltip content={<ChartTooltipContent />} />
+        {showLegend && <ChartLegend content={<ChartLegendContent />} />}
+        <RechartsPrimitive.Line 
+          type="monotone"
+          dataKey={yField} 
+          stroke={Array.isArray(colors) ? colors[0] : colors} 
+          strokeWidth={2}
+          dot={{ r: 4 }}
+          activeDot={{ r: 6 }}
+        />
+      </RechartsPrimitive.LineChart>
+    </ChartContainer>
+  );
+};
+
 export {
   ChartContainer,
   ChartTooltip,
@@ -361,3 +447,4 @@ export {
   ChartLegendContent,
   ChartStyle,
 }
+
