@@ -3,13 +3,33 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { cn } from '@/lib/utils';
-import { Tornado, LayoutDashboard, Users, Activity, Settings, ChevronLeft, ChevronRight } from 'lucide-react';
+import { 
+  Tornado, 
+  LayoutDashboard, 
+  Users, 
+  Activity,
+  Settings, 
+  ChevronLeft, 
+  ChevronRight,
+  User,
+  ListOrdered,
+  Database,
+  UsersRound,
+  TrendingUp,
+  FileText
+} from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const navItems = [
-  { name: 'Dashboard', path: '/', icon: LayoutDashboard },
+  { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
+  { name: 'Personal Stats', path: '/personal-stats', icon: User },
   { name: 'Players', path: '/players', icon: Users },
   { name: 'Battles', path: '/battles', icon: Activity },
+  { name: 'Leaderboard', path: '/leaderboard', icon: ListOrdered },
+  { name: 'Loot Logger', path: '/loot-logger', icon: Database },
+  { name: 'Alliances', path: '/alliances', icon: UsersRound },
+  { name: 'Status', path: '/status', icon: TrendingUp },
+  { name: 'Logs', path: '/logs', icon: FileText },
   { name: 'Settings', path: '/settings', icon: Settings },
 ];
 
