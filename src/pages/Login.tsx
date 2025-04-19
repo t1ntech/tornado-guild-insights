@@ -30,4 +30,7 @@ const Login = () => {
         </Button>
       </div>
     </div>
-  
+  );
+};
+
+export default Login;
